@@ -55,7 +55,7 @@ docker run -d -p [port]:23280 --name [container name] [images name]
 ```
 容器启动成功后, 可通过ip:port/route调用
 
-curl命令: curl -H "Content-type: application/json" -X POST http://localhost:23285/nlp/sentiment_analyzer -d '{"texts":["水果新鲜！发货快，服务好，京东物流顶呱呱，快递小哥服务好周到，送货上门，每次都热情满满，辛苦了，必须赞！","隔音差，加  速有点不给力","最满意的是耗电量很低，百公里耗电才11.8度，这样算起来，出行成本比地铁的还低。"]}'
+curl命令: curl -H "Content-type: application/json" -X POST http://localhost:23285/nlp/sentiment_analyze -d '{"text_list":["水果新鲜！发货快，服务好，京东物流顶呱呱，快递小哥服务好周到，送货上门，每次都热情满满，辛苦了，必须赞！","隔音差，加  速有点不给力","最满意的是耗电量很低，百公里耗电才11.8度，这样算起来，出行成本比地铁的还低。"]}'
 result: {"code": 0, "msg": "success", "data": {"result": ["positive", "negative", "positive"]}}
 ```
 
