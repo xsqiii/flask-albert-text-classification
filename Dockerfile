@@ -1,18 +1,20 @@
-FROM python:3.8-buster
+FROM ubuntu:20.04
 
-# 阿里云镜像源
-#RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
-RUN apt update
-RUN apt upgrade -y
-RUN pip install -U pip
-RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
-RUN pip config set install.trusted-host mirrors.aliyun.com
+RUN sed -i s@/archive.ubuntu.com/@/mirrors.tuna.tsinghua.edu.cn/@g /etc/apt/sources.list
+RUN apt update && apt install -y tzdata
+ENV TZ Asia/Shanghai
+
+RUN apt install python3-pip -y
+
+RUN pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple pip -U \
+    && pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple \
+    && pip3 config set install.trust-host pypi.tuna.tsinghua.edu.cn
 
 WORKDIR /usr/src/app
 
 COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD ["gunicorn", "api:sentiment", "-c", "./gunicorn.conf"]
+CMD ["gunicorn", "server:app", "-c", "./gunicorn.conf"]

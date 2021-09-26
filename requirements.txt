@@ -2,9 +2,8 @@ absl_py==0.13.0
 tensorflow==2.3.0
 sentencepiece==0.1.96
 six==1.16.0
-Flask==1.1.2
+Flask==2.0.1
 numpy==1.18.5
-grpcio==1.33.2
 gunicorn==20.0.4
 requests==2.25.0
 gevent

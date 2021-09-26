@@ -1,6 +1,5 @@
 import tensorflow as tf
 import tokenization
-from classifier_data_lib import InputFeatures
 import numpy as np
 
 saved_model_path = "./saved_model/1"
@@ -10,12 +9,28 @@ loaded = tf.saved_model.load(saved_model_path)
 predict_fn = loaded.signatures["serving_default"]
 
 
-class Api(object):
+class InputFeatures(object):
+    """A single set of features of data."""
+
+    def __init__(self,
+                 input_ids,
+                 input_mask,
+                 segment_ids,
+                 label_id,
+                 is_real_example=True):
+        self.input_ids = input_ids
+        self.input_mask = input_mask
+        self.segment_ids = segment_ids
+        self.label_id = label_id
+        self.is_real_example = is_real_example
+
+
+class Predictor(object):
     def __init__(self):
         self.max_seq_len = 128
         self.tokenizer = tokenization.FullTokenizer(vocab_file="./albert_tiny/vocab.txt", do_lower_case=False)
 
-    def api(self, text_list: list):
+    def predict(self, text_list: list):
         if len(text_list) == 0:
             return None
         features = self.convert_to_feature(text_list)
