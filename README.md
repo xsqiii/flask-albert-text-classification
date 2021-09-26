@@ -36,7 +36,7 @@ python api.py
 
 ## request
 ```
-curl -H "Content-type: application/json" -X POST http://localhost:5000/nlp/sentiment_analyzer -d '{"texts":["水果新鲜！发货快，服务好，京东物流顶呱呱，快递小哥服务好周到，送货上门，每次都热情满满，辛苦了，必 赞！","隔音差，加速有点不给力"]}'
+curl -H "Content-type: application/json" -X POST http://localhost:5000/nlp/sentiment_analyze -d '{"text_list":["水果新鲜！发货快，服务好，京东物流顶呱呱，快递小哥服务好周到，送货上门，每次都热情满满，辛苦了，必 赞！","隔音差，加速有点不给力"]}'
 ```
 
 ## docker
